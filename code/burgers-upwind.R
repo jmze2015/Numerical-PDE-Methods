@@ -3,10 +3,7 @@ library(plotly)
 library(dplyr)
 
 ## parameters
-
 M <- 500 ## number of spacial subdivisions
-#N <- 300 ## number of temporal subdivisions
-
 L <- 5 ## length of interval
 
 ## x spacing
@@ -16,6 +13,7 @@ h <- L / M
 x <- seq(-L/2, (L/2)-h, by = h)
 u <- exp(-16*((x)^2)) 
 
+max(abs(u))
 ## CFL condition for t spacing
 k <- 0.8 * h / max(abs(u))
 lambda <- k / h
@@ -24,12 +22,12 @@ lambda <- k / h
 T_max <- 150 ## seconds
 N <- ceiling(T_max / k)
 
-
-
+## Burger's flux function
 Flux <- function(x){
   return(x^2 / 2)
 }
 
+## Data frame to hold time
 results <- data.frame(
   x = x,
   u = u,
@@ -37,21 +35,21 @@ results <- data.frame(
   time = 0
 )
 
-# results
-
+## General Update For Loop
 for(n in 1:N){
-  
   u_new <- u
   
+  ## Upwind Flux Rule
   for(i in 2:M){
     u_new[i] <- u[i] - lambda * (Flux(u[i]) - Flux(u[i-1]))
   }
   
-  ## boundary condition
+  ## Boundary Condition
   u_new[1] <- u[1] - lambda* (Flux(u[1]) - Flux(u[M]))
   
   u <- u_new
   
+  ## Rendering Helper
   if(n %% 10 == 0){
     results <- rbind(results, data.frame(
       x = x, 
@@ -60,10 +58,9 @@ for(n in 1:N){
       time = n*k
     ))
   }
-  
 }
 
-#results
+## Animation Set-Up
 
 fig <- plot_ly(
   data = results,
@@ -75,7 +72,7 @@ fig <- plot_ly(
 ) %>%
   layout(
     title = "Inviscid Burgers': Upwind",
-    xaxis = list(title = "x", range = c(-5.1, 5.1)),
+    xaxis = list(title = "x", range = c(-2.6, 2.6)),
     yaxis = list(title = "u(x,t)", range = c(0, 1.1)),
     shapes = list(
       
