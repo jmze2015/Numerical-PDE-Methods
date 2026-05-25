@@ -144,6 +144,7 @@ fig <- plot_ly(
 fig
 
 
+#htmlwidgets::saveWidget(fig, "burgers_lax_wendroff_animation.html")
 
 
 
