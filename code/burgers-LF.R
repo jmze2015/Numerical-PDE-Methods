@@ -2,7 +2,6 @@ library(plotly)
 library(dplyr)
 
 ## parameters
-
 M <- 500 ## number of spacial subdivisions
 L <- 5 ## length of interval
 
@@ -63,7 +62,6 @@ for(n in 1:N){
   }
   
 }
-
 
 fig <- plot_ly(
   data = results,

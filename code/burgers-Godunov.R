@@ -1,4 +1,3 @@
-
 library(plotly)
 library(dplyr)
 
@@ -40,7 +39,6 @@ Gud_Flux <- function(u, v){
     f(v)
   }
 }
-  
 
 ## Data frame for storing PDE data
 results <- data.frame(
@@ -50,7 +48,7 @@ results <- data.frame(
   time = 0
 )
 
-## Main shceme update loop
+## Main scheme update loop
 for(n in 1:N){
   
   u_new <- u
@@ -77,8 +75,6 @@ for(n in 1:N){
   }
   
 }
-
-
 
 fig <- plot_ly(
   data = results,
