@@ -15,11 +15,11 @@ x <- seq(-L/2, (L/2)-h, by = h)
 u <- exp(-16*((x)^2))
 
 ## CFL condition for t spacing
-k <- 0.5 * h / max(abs(u))
+k <- 0.8 * h / max(abs(u))
 lambda <- k / h
 
 ## Simulation Time
-T_max <- 15 ## seconds
+T_max <- 150 ## seconds
 N <- ceiling(T_max / k)
 
 
@@ -39,6 +39,7 @@ A <- function(i){
   }
 }
 
+## Data Frame for storing data
 results <- data.frame(
   x = x,
   u = u,
@@ -46,7 +47,7 @@ results <- data.frame(
   time = 0
 )
 
-# results
+## Main Update For Loop for simulation
 
 for(n in 1:N){
   
@@ -101,7 +102,7 @@ fig <- plot_ly(
 ) %>%
   layout(
     title = "Inviscid Burgers': Lax-Wendroff",
-    xaxis = list(title = "x", range = c(-5.1, 5.1)),
+    xaxis = list(title = "x", range = c(-2.6, 2.6)),
     yaxis = list(title = "u(x,t)", range = c(0, 1.1)),
     shapes = list(
       
