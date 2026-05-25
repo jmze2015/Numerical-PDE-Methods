@@ -1,9 +1,7 @@
-
 library(plotly)
 library(dplyr)
 
 ## parameters
-
 M <- 500 ## number of spacial subdivisions
 L <- 5 ## length of interval
 
@@ -22,15 +20,17 @@ lambda <- k / h
 T_max <- 150 ## seconds
 N <- ceiling(T_max / k)
 
-
+## Burgers f(u)
 f <- function(x){
   return(x^2 / 2)
 }
 
+## Lax Flux function
 Lax_Flux <- function(u, v){
   f(u) - f(v)
 }
 
+## LW rule
 A <- function(i){
   if(i == M){
     (u[M]+u[1])/2
@@ -48,11 +48,11 @@ results <- data.frame(
 )
 
 ## Main Update For Loop for simulation
-
 for(n in 1:N){
   
   u_new <- u
   
+  ## Lax-Wendroff Update Rule
   for(i in 2:(M-1)){
     u_new[i] <- (
       u[i] 
@@ -87,11 +87,9 @@ for(n in 1:N){
       time = n*k
     ))
   }
-  
 }
 
-
-
+## animation code
 fig <- plot_ly(
   data = results,
   x = ~x,

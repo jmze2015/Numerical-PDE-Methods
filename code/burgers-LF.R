@@ -1,4 +1,3 @@
-
 library(plotly)
 library(dplyr)
 
@@ -121,22 +120,18 @@ fig
 
 
 
-
-
-
-## htmlwidgets::saveWidget(fig, "burgers_lax_friedrichs_animation.html")
-
-
-
+# ## creating the HTML animation
+# htmlwidgets::saveWidget(fig, "burgers_lax_friedrichs_animation.html")
+# 
 # ## Screenshot Code
 # times <- c(0, 0.24, 0.80, 1.28, 2.40)
 # 
-# dir.create("Images_RF", showWarnings = FALSE)
+# dir.create("Images_LF", showWarnings = FALSE)
 # 
 # for (tt in times) {
-#   
+# 
 #   df_t <- results[results$time == tt, ]
-#   
+# 
 #   fig_t <- plot_ly(
 #     data = df_t,
 #     x = ~x,
@@ -145,7 +140,7 @@ fig
 #     mode = "lines"
 #   ) %>%
 #     layout(
-#       title = paste0("Inviscid Burgers': Upwind, t = ", tt),
+#       title = paste0("Inviscid Burgers': Lax-Friedrichs, t = ", tt),
 #       xaxis = list(title = "x", range = c(-2.6, 2.6)),
 #       yaxis = list(title = "u(x,t)", range = c(0, 1.1)),
 #       shapes = list(
@@ -167,28 +162,28 @@ fig
 #         )
 #       )
 #     )
-#   
+# 
 #   filename <- paste0(
-#     "Images/upwind_t_",
+#     "Images_LF/LF_t_",
 #     gsub("\\.", "p", sprintf("%.2f", tt)),
 #     ".png"
 #   )
-#   
+# 
 #   htmlwidgets::saveWidget(
 #     fig_t,
 #     "temp.html",
 #     selfcontained = TRUE
 #   )
-#   
+# 
 #   webshot2::webshot(
 #     "temp.html",
 #     file = filename,
 #     vwidth = 800,
 #     vheight = 600
 #   )
-#   
-#   file.remove(temp.html)
+# 
 # }
+# file.remove(temp.html)
 
 
 
